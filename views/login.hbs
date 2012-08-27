@@ -1,0 +1,88 @@
+<div class="loginWrapper">
+  <div class="container login">
+    {{#if flash.warn}}
+    <div class="row alert">
+      {{flash.warn}}
+    </div>
+    {{/if}}
+    <div class="row">
+      <div class="offset4 span4 offset4 bubble">
+        <h1 class="logo"><span class="version"></span></h1>
+        <form method="POST" action="/login">
+          <div id="login_modal_alert">
+          </div>
+          <fieldset>
+            <div class="control-group">
+              <div class="controls">
+                <div class="input-prepend"><input class="input-large" 
+                  id="login_email" name="login_email" 
+                  placeholder="email@address.com" type="text" 
+                  style="margin-bottom:0px" autofocus="autofocus" 
+                  autocomplete="on"><span id="email_status"><span>
+                </div>
+                <div>
+                  <input id="login_pw" name="login_pw" placeholder="password" 
+                  type="password"><span id="pw_status"></span>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <div class="formActions">
+            <a data-toggle="modal" 
+            href="#createUser_modal" id="createUserAccount">
+              Create Account
+            </a>&nbsp;&nbsp;<button class="btn btn-primary" type="submit" 
+            id="loginSubmit">Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal hide" id="createUser_modal">
+  <form method="POST" action="/new" class="form-horizontal" 
+  name="newUserSignUp">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>Create Account</h3>
+  </div>
+  <div class="modal-body">
+    <div id="createUser_modal_alert">
+    </div>
+    <fieldset>
+      <div class="control-group">
+        <label class="control-label">Name</label>
+        <div class="controls">
+          <input class="input-medium" id="newUser_firstName" 
+          name="newUser_firstName" placeholder="First Name" type="text"
+          autofocus>
+          <input class="input-medium" id="newUser_lastName"
+          name="newUser_lastName" placeholder="Last Name" type="text">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Email</label>
+        <div class="controls">
+          <input class="input-large" id="newUser_email" name="newUser_email" 
+          placeholder="Email" type="text" value="{{email}}">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Password</label>
+        <div class="controls">
+          <input id="newUser_pw" name="newUser_pw" placeholder="Password" 
+          type="password" class="input-medium">
+          <input id="newUser_pwConfirm" name="newUser_pwConfirm" 
+          placeholder="Confirm Password" type="password" 
+          class="input-medium">
+        </div>
+      </div>
+    </fieldset>
+  </div>
+  <div class="modal-footer">
+    <a href="#" data-dismiss="modal" class="btn">Cancel</a>
+    <button disabled class="btn btn-primary" 
+    id="createUserSubmit" name="createUserSubmit">Create Account</button>
+  </div>
+  </form>
+</div>

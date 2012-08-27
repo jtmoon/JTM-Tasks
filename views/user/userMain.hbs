@@ -1,0 +1,531 @@
+<div class="container-fluid maxHeight">
+  <div class="row-fluid maxHeight">
+    <div class="" id="appNav">
+    <!--User Nav-->
+      <ul class="nav">
+        <li data-navField="profile">
+          <div class="btn-group dropdown">
+            <a class="navProfile btn btn-small" data-toggle="modal" 
+            href="#myProfile" data-userId="{{user._id}}">
+              {{#if user.firstName}}
+              {{user.firstName}} {{user.lastName}}
+              {{else}}
+              {{user.email}}
+              {{/if}}
+            </a>
+            <button class="btn btn-small dropdown-toggle" 
+            data-toggle="dropdown">
+              <span class="label label-important" 
+              data-field="inviteCount">{{inviteCount}}</span> <span 
+              class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" data-for="navProfile">
+              <li>
+                <a href="#" data-toggle="modal" data-target="#newGroupModal">
+                  New Group
+                </a>
+              </li>
+              <li>
+                <a href="#" data-toggle="modal" data-target="#myInvites">
+                  Invites <span class="label" 
+                  data-field="inviteCount">{{inviteCount}}</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" data-toggle="modal" data-target="#myConnections">
+                  Connections <span class="label" 
+                  data-field="connectionCount">{{connectionCount}}</span>
+                </a>
+              </li>
+              <li class="divider"></li>
+              <li>
+                <a href="/logout" type="submit">Logout</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-header">
+          <a href="#" data-action="loadUserDashboard">
+            Dashboard
+          </a>
+        </li>
+        {{#each user.groups}}
+        <div data-list="group" data-groupId="{{this._id}}">
+          <li class="nav-header" data-navField="group"
+          data-groupId="{{this._id}}">
+            <span>{{this.title}}</span>
+            <div class="groupOptions dropdown pull-right">
+              <button class="btn btn-mini dropdown-toggle" 
+              data-toggle="dropdown">
+                <i class="icon-cog icon-white"></i>
+              </button>
+              <ul class="dropdown-menu" data-for="navGroup">
+                <li>
+                  <a href="#" 
+                  data-action="removeFromGroup">Remove Me From Group</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <ul class="navGroupProjects unstyled" data-groupId="{{this._id}}">
+              {{#each this.projects}}
+              <li class="groupProject">
+                <a href="#" data-projectTitle="{{this.title}}" 
+                data-projectId="{{this._id}}" class="navProject">
+                  {{this.title}}
+                </a>
+              </li>
+              {{/each}}
+              <li class="groupActions">
+                <button class="btn btn-mini" data-groupId="{{this._id}}" 
+                data-groupName="{{this.title}}" data-action="newProject">
+                <span class="newProjectSymbol">+<span> New Project
+                </button>
+              </li>
+            </ul>
+          </li>
+        </div>
+        {{/each}}
+      </ul>
+      <!--
+      <div class="appInfo">
+        <a href="#" data-toggle="modal" data-target="#changeLog" 
+        class="btn">v0.5.1 Change Log</a>&nbsp;<a 
+        href="#" data-toggle="modal" data-target="#submitBug">
+          Report Bug
+        </a>
+      </div>
+    -->
+    </div>
+    <div class="" id="appMain">
+    <!--Main-->
+      <div class="row-fluid maxHeight">
+        {{#if project}}
+        <div class="mainPane span8" id="mainPane">
+          <div class="projectInfo" 
+          data-projectId="{{project._id}}">
+            <input data-field="projectTitle" data-action="editProjectTitle" 
+            value="{{project.title}}">
+          </div>
+          <div class="projectOptions">
+            <ul>
+              <li class="optionLabel">Arrange By: </li>
+              <li class="optionBtn">
+                <button class="btn btn-mini" data-action="viewBy" 
+                data-view="priority">Priority</button>
+              </li>
+              <li class="optionBtn">
+                <button class="btn btn-mini" data-action="viewBy" 
+                data-view="dueToday">Due Date</button>
+              </li>
+              <!--
+              <li class="optionBtn">
+                <button class="btn btn-mini" data-action="viewBy" 
+                data-view="date">Date</button>
+              </li>
+              -->
+              <li class="optionBtnEmbed dropdown pull-right">
+                <button class="btn dropdown-toggle" data-toggle="dropdown">
+                  <i class="icon-cog"></i>
+                </button>
+                <ul class="dropdown-menu" data-for="projectOptionsNew">
+                  <li>
+                    <a href="#" data-toggle="modal"
+                    data-projectId="{{project._id}}" 
+                    data-target="#deleteProject">
+                      Delete Project
+                    </a>
+                  </li>
+                  <!--
+                  <li>
+                    <a href="#" data-toggle="modal" 
+                    data-projectId="{{project._id}}" 
+                    data-target="#inviteUserToProject">
+                      Invite Users
+                    </a>
+                  </li>
+                  -->
+                </ul>
+              </li>
+              <li class="optionBtnEmbed dropdown pull-right">
+                <button class="btn dropdown-toggle" data-toggle="dropdown">
+                  New <i class="icon-chevron-down"></i>
+                </button>
+                <ul class="dropdown-menu" data-for="projectOptionsNew">
+                  <li>
+                    <a href="#" data-action="newTask">
+                      Task
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" data-action="newMilestone">
+                      Milestone
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="taskList">
+            <ul class="unstyled" data-list="taskList">
+              {{{projectTasks project.tasks}}}
+            </ul>
+          </div>
+        </div>
+        {{#if task}}
+        <div class="infoPane span4" id="infoPane"
+        data-infoId="{{task._id}}">
+          <div class="infoOptions" data-infoId="{{task._id}}">
+            <ul>
+              <li class="optionBtn">
+                <button class="btn btn-mini" data-action="taskComplete"><!--
+                -->Mark Complete<!--
+              --></button>
+              </li>
+              <li class="optionBtn dropdown">
+                <button class="btn btn-mini dropdown-toggle" 
+                data-toggle="dropdown">
+                  <i class="icon-chevron-down"></i>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a href="#" data-action="toggleMilestone">
+                      {{#if task.milestone}}Un-Make Milestone{{else}}<!--
+                    -->Make Milestone{{/if}}
+                      </a>
+                    </li>
+                  </ul>
+                </button>
+              </li>
+              <li class="optionBtnEmbed pull-right">
+                <button class="btn" data-action="closeInfoPane">
+                  &times;
+                </button>
+              </li>
+              <li class="optionBtnEmbed dropdown pull-right">
+                <button class="btn dropdown-toggle" data-toggle="dropdown">
+                  <i class="icon-cog"></i>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a href="#" data-action="deleteTask" 
+                      data-target="{{task._id}}">
+                        Delete Task
+                      </a>
+                    </li>
+                  </ul>
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div class="infoTitle">
+            <input data-field="displayInfoTitle" data-target="{{task._id}}" 
+            placeholder="(new task)" value="{{task.title}}" class="">
+          </div>
+          <div class="infoDetail">
+            <div>
+              <textarea data-type="notesDesc" data-field="taskNotes" 
+              placeholder="Notes">{{task.notes}}</textarea>
+              <div id="textareaResize" contenteditable></div>
+            </div>
+            <dl>
+            <div data-infoField="taskAssignee">
+              <dt>Assigned To:</dt>
+              <dd>
+                <span data-field="placeholder">assign to teammate</span>
+                {{#if task.assigned_to.email}}
+                <input type=text data-input="assignTo" style="display: none;">
+                {{/if}}
+                <a href="#" class="btn btn-mini" data-action="assignTo">
+                  <i class="icon-user"></i>
+                </a>
+              </dd>
+            </div>
+            <div data-infoField="taskDueDate">
+              <dt>Due Date:</dt>
+              <dd>
+                <input class="input-small" data-field="taskDueDate" 
+                type="text"{{#if task.end_at}} value="{{task.end_at}}"{{/if}}>
+              </dd>
+            </div>
+            <!--
+            <div data-infoField="taskTags">
+              <dt>Tags:</dt>
+              <dd>
+                <ul class="unstyled" data-list="taskTags">
+                  {{#each task.tags}}
+                  <li data-field="tag">
+                    <span class="badge badge-info">{{this}}</span>
+                  </li>
+                  {{/each}}
+                  <li>
+                    <a href="#" data-action="addTag" class="btn btn-mini">
+                      <i class="icon-plus"></i>
+                    </a>
+                  </li>
+                </ul>
+              </dd>
+            </div>
+          -->
+            </dl>
+          </div>
+        </div>
+        {{else}}
+        <div class="infoPane span4" id="infoPane"
+        data-infoId="{{project._id}}">
+          <div class="infoOptions">
+            <ul>
+              <li class="optionBtnEmbed pull-right">
+                <button class="btn" data-action="closeInfoPane">
+                  &times;
+                </button>
+              </li>
+              <li class="optionBtnEmbed dropdown pull-right">
+                <button class="btn dropdown-toggle" data-toggle="dropdown">
+                  <i class="icon-cog"></i>
+                  <ul class="dropdown-menu">
+                    <li><a href="#" data-toggle="modal" 
+                    data-projectId="{{project._id}}" 
+                    data-target="#deleteProject">
+                      Delete Project
+                    </a></li>
+                    <!--
+                    <li><a href="#" data-toggle="modal" 
+                    data-projectId="{{project._id}}" 
+                    data-target="#inviteUserToProject">
+                    Invite Users</a></li>
+                    -->
+                  </ul>
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div class="infoTitle">
+            <input data-field="displayInfoTitle" data-target="{{project._id}}" 
+            data-action="displayProjectTitle" value="{{project.title}}" 
+            class="">
+          </div>
+          <div class="infoDetail">
+            <div>
+              <textarea data-type="notesDesc" data-field="projectDesc" 
+              placeholder="Description">{{project.desc}}</textarea>
+              <div id="textareaResize" contenteditable></div>
+            </div>
+            <div data-infoField="members">
+              <dl>
+                <dt>Members</dt>
+                <dd>
+                  <ul data-list="projectMembers">
+                  {{#each project.users}}<!--
+                 --><li data-field="projectUser" 
+                    data-userId="{{this._id}}"
+                    rel="tooltip" 
+                    title="{{this.email}}"><!--
+                    -->{{this.firstName}}&nbsp;{{this.lastName}}&nbsp;<!--
+                 --><a href="#" data-toggle="modal" 
+                    data-target="#removeProjectMember"
+                    data-action="removeProjectMember">&times;</a></li><!--
+               -->{{/each}}<!--
+                 --><li data-toggle="modal" 
+                    data-target="#inviteUserToProject"><!--             
+                 --><button class="btn btn-mini">
+                      <i class="icon-plus"></i>
+                    </button>
+                  </li>
+                  </ul>
+                </dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+        {{/if}}
+      </div>
+      {{else}}
+      <div class="mainPane" id="mainPane">
+      </div>
+      <div class="infoPane hide" id="infoPane">
+      </div>
+      {{/if}}
+    </div>
+  </div>
+</div>
+<!--Modal for creating new group-->
+<div class="modal hide" id="newGroupModal">
+  <div class="modal-header">
+    <h4>New Group</h4>
+  </div>
+  <div class="modal-body">
+    <input name="groupTitle" data-field="groupTitle" type="text" 
+    placeholder="Group Name...">
+    <select data-field="groupType">
+      <option value="Work">Work</option>
+      <option value="School">School</option>
+      <option value="Personal">Personal</option>
+    </select>
+  </div>
+  <div class="modal-footer">
+    <a href="#" data-dismiss="modal" class="btn">Cancel</a>
+    <a href="#" class="btn btn-primary" data-dismiss="modal" 
+    data-action="newGroup">New Group</a>
+  </div>
+</div>
+<!--Modal for deleting project-->
+<div class="modal hide" id="deleteProject">
+  <div class="modal-body">
+    Delete this project?
+  </div>
+  <div class="modal-footer">
+    <a href="#" data-dismiss="modal" class="btn">No</a>
+    <a href="#" class="btn btn-primary" data-dismiss="modal" 
+    data-action="deleteProject">Yes</a>
+  </div>
+</div>
+<!--Modal for inviting users to project-->
+<div class="modal hide" id="inviteUserToProject">
+  <div class="modal-header">
+    <h4>Add Users</h4>
+  </div>
+  <div class="modal-body">
+    <div>
+      <input placeholder="Type user email" type="text" 
+      data-provide="typeahead" data-field="inviteeEmail">
+      <a href="#" class="btn btn-primary" data-dismiss="modal" 
+      data-action="sendInviteCode" disabled>Invite User</a>
+    </div>
+    <div data-field="inviteQuota">
+      You have <span data-field="invitesRemaining"></span> alpha invites remaining.
+    </div>
+    <div>
+      <h2>Connections</h2>
+      <ul class="unstyled" data-list="userConnections">
+      {{#each user.connections}}
+        <li data-connectionEmail="{{this.email}}"><!--
+        -->{{this.firstName}}&nbsp;{{this.lastName}}&nbsp;({{this.email}})<!--
+        -->&nbsp;<a href="#" 
+        data-action="inviteConnection" class="btn"><i 
+        class="icon-plus"></i></a>
+        </li>
+      {{/each}}
+      </ul>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a href="#" data-dismiss="modal" class="btn">Cancel</a>
+  </div>
+</div>
+<!--Modal for invites-->
+<div class="modal hide" id="myInvites">
+  <div class="modal-header">
+    Invites
+  </div>
+  <div class="modal-body">
+    <ul class="unstyled" data-list="receivedInvites">
+      <li><h3>Received Invites</h3></li>
+      {{#each receivedInvites}}
+      <li data-inviteId="{{this._id}}">
+        <span>{{target_id.title}}</span>
+        <select data-action="addToGroup" data-field="group">
+          {{#each ../user.groups}}
+          <option value="{{this._id}}">{{this.title}}</option>
+          {{/each}}
+        </select>
+        <a class="btn" href="#" 
+        data-inviteId="{{this._id}}" 
+        data-action="declineInvite">
+          Decline
+        </a>
+        <a class="btn btn-primary" data-dismiss="alert"
+        data-action="acceptInvite" data-inviteId="{{this._id}}" 
+        href="#">
+          Accept
+        </a>
+      </li>
+      {{/each}}
+    </ul>
+    <ul class="unstyled" data-list="sentInvites">
+      <li><h3>Sent Invites</h3></li>
+      {{#each sentInvites}}
+      <li data-inviteId="{{this._id}}">
+        <span>{{this.target_id.title}}</span>
+        <a class="btn" href="#" 
+        data-inviteId="{{this._id}}" 
+        data-action="declineInvite">
+          Cancel
+        </a>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <a href="#" data-dismiss="modal" class="btn">Close</a>
+  </div>
+</div>
+<!--Modal for basic user profile-->
+<div class="modal hide" id="myProfile">
+  <div class="modal-header">
+    Profile
+  </div>
+  <div class="modal-body">
+    <form name="userProfile" data-for="profile">
+      <input type="text" data-field="firstName" name="firstName" 
+      placeholder="First Name" value="{{user.firstName}}">
+      <input type="text" data-field="lastName" name="lastName" 
+      placeholder="Last Name" value="{{user.lastName}}">
+    </form>
+  </div>
+  <div class="modal-footer">
+    <a href="#" data-dismiss="modal" class="btn">Close</a>
+    <a href="#" data-action="updateProfile" class="btn btn-primary">Update</a>
+  </div>
+</div>
+<!--Modal for basic connections-->
+<div class="modal hide" id="myConnections">
+  <div class="modal-header">
+    Connections
+  </div>
+  <div class="modal-body">
+    <div>
+      <input placeholder="Type user email" type="text" 
+      data-provide="typeahead" data-field="inviteeEmail">
+      <a href="#" class="btn btn-primary" data-dismiss="modal" 
+      data-action="sendInviteCode" disabled>Invite User</a>
+    </div>
+    <div data-field="inviteQuota">
+      You have <span data-field="invitesRemaining"></span> alpha invites remaining.
+    </div>
+    <ul class="unstyled" data-list="connections">
+      <li>
+        <h3>Connections&nbsp;{{connectionCount}}/{{connectionLimit}}</h3>
+      </li>
+      {{#each user.connections}}
+      <li data-connectionEmail="{{this.email}}">
+        {{this.firstName}}&nbsp;{{this.lastName}}&nbsp;({{this.email}})
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <a href="#" data-dismiss="modal" class="btn">Close</a>
+  </div>
+</div>
+<!--Modal for removing user from project-->
+<div class="modal hide" id="removeProjectMember">
+  <div class="modal-header">
+    Are you sure you want to remove <span data-field="projectMember"></span>?
+  </div>
+  <div class="modal-footer">
+    <a href="#" data-dismiss="modal" class="btn">No</a>
+    <a href="#" data-dismiss="modal" class="btn btn-primary" 
+    data-action="confirmRemoveProjectMember">Yes</a>
+  </div>
+</div>
+<!--Modal for change log-->
+<div class="modal hide" id="changeLog">
+  <div class="modal-header">
+    Change Log
+  </div>
+  <div class="modal-body">
+  </div>
+  <div class="modal-footer">
+    <a href="#" data-dismiss="modal" class="btn">Close</a>
+  </div>
+</div>

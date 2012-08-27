@@ -1,0 +1,15 @@
+{
+    "name": "application-name"
+  , "version": "0.0.1"
+  , "private": true
+  , "dependencies": {
+      "express": "2.5.8"
+    , "hbs": ">= 0.0.1"
+    , "socket.io": ">=0.8.0"
+    , "mongoose": ">=2.5.0"
+    , "mongodb": ">=1.0.0"
+    , "connect": ">=1.0.0"
+    , "mongoose-types": ">=1.0.0"
+    , "crypto": ">=0.0.3"
+  }
+}

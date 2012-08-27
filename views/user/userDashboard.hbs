@@ -1,0 +1,58 @@
+<div class="row-fluid maxHeight">
+  <div id="mainPane">
+    <div id="userDashboard">
+      <h1>Dashboard</h1>
+      <div data-projectList="today">
+        <div class="title">
+          <h2>Today</h2>{{{countRemaining projectsToday}}}
+        </div>
+        {{#each projectsToday}}
+        {{#if this.tasks}}
+        <div class="project">
+          <div class="title">{{this.title}}</div>
+          <div class="taskList">
+            <ul class="unstyled" data-list="taskList">
+              {{{projectTasks this.tasks}}}
+            </ul>
+          </div>
+        </div>
+        {{/if}}
+        {{/each}}
+      </div>
+      <div data-projectList="tomorrow">
+        <div class="title">
+          <h2>Tomorrow</h2>{{{countRemaining projectsTomorrow}}}
+        </div>
+        {{#each projectsTomorrow}}
+          {{#if this.tasks}}
+          <div class="project">
+            <div class="title">{{this.title}}</div>
+            <div class="taskList">
+              <ul class="unstyled" data-list="taskList">
+                {{{projectTasks this.tasks}}}
+              </ul>
+            </div>
+          </div>
+          {{/if}}
+        {{/each}}
+      </div>
+      <div data-projectList="later">
+        <div class="title">
+          <h2>Later</h2>{{{countRemaining projectsLater}}}
+        </div>
+        {{#each projectsLater}}
+          {{#if this.tasks}}
+          <div class="project">
+            <div class="title">{{this.title}}</div>
+            <div class="taskList">
+              <ul class="unstyled" data-list="taskList">
+                {{{projectTasks this.tasks}}}
+              </ul>
+            </div>
+          </div>
+          {{/if}}
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>

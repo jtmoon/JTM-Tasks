@@ -1,0 +1,1010 @@
+//Fonts
+@font-face {
+  font-family     : AdventPro;
+  src             : url('/fonts/AdventPro-Regular.ttf');
+}
+
+@font-face {
+  font-family     : AdventPro;
+  font-weight     : bold;
+  src             : url('/fonts/AdventPro-Bold.ttf');
+}
+
+//Nav Variables
+@navBg:                     @navBgColor url('/images/bg_3A414B.png');
+@navBgColor:                #3A414B;
+@navBoxShadow:              inset 0px 1px rgba(255, 255, 255, 0.2)
+                          , inset -1px 0px rgba(255, 255, 255, 0.2);
+@navHeaderBgColor:          lighten(@navBgColor, 7%);
+@navHeaderBorder:           1px darken(@navBgColor, 10%) solid;
+@navHeaderBoxShadow:        inset 0 1px rgba(255, 255, 255, 0.2)
+                          , inset -1px 0px rgba(255, 255, 255, 0.2);
+@navLinkColor:              #fafafa;
+@navLinkColorHover:         darken(@navLinkColor, 10%);
+@navBtnColor:               lighten(@navBgColor, 7%);
+@navBtnBorderColor:         1px darken(@navBgColor, 10%) solid;
+
+//App Variables
+@appBgColor:                @headerBgColor;
+@titleFontSize:             18pt;
+@appMainBoxShadow:          -2px 0px 3px 0.5px #393939;
+
+//App Header Variables
+//@headerBg:                  @headerBgColor url('/images/bg_f8f7e8.png');
+@headerBgColor:             lighten(#E2E6E9, 6%);
+@headerBorder:              1px darken(@headerBgColor, 30%) solid;
+@headerBoxShadowInset:      inset 1px 0px rgba(255, 255, 255, 0.2)
+                          , inset 0px 1px rgba(255, 255, 255, 0.5);
+@headerOptionsBgColor:      darken(@headerBgColor, 5%);
+
+//App Main Pane Variables
+@mainPaneBg:                @headerBgColor url('/images/bg_E2E6E9.png');
+@mainPaneBgColor:           #E2E6E9;
+@mainPaneBoxShadow:         inset 1px 0px rgba(255, 255, 255, 0.5)
+                          , inset -1px 0px rgba(255, 255, 255, 0.5);
+@taskBgColor:               #fefefe;
+@projectOptionsBtnColor:    darken(@headerOptionsBgColor, 10%);
+@projectOptionsBorder:      1px darken(@headerOptionsBgColor, 30%) solid;
+@projectOptionsBoxShadow:   inset 0px 1px rgba(255, 255, 255, 0.5);
+
+//App Info Pane Variables
+@infoPaneHeaderBgColor:     #f5f5f5;
+@infoPaneHeaderBoxShadow:   inset 1px 0px rgba(255, 255, 255, 0.5);
+@infoOptionsBgColor:        @infoPaneHeaderBgColor;
+@infoOptionsBorder:         1px darken(@infoPaneHeaderBgColor, 30%) solid;
+@infoOptionsBoxShadow:      inset 0px 1px rgba(255, 255, 255, 0.5);
+@infoPaneBgColor:           #fefefe;
+
+.clearer {
+  clear:                    both;
+}
+
+#appNav input, #appMain input {
+  margin-bottom:            0px;
+  -webkit-transition:       border linear 0.2s
+                          , box-shadow linear 0.2s
+                          , background linear 0.2s;
+  -moz-transition:          border linear 0.2s
+                          , box-shadow linear 0.2s
+                          , background linear 0.2s;
+  transition:               border linear 0.2s
+                          , box-shadow linear 0.2s
+                          , background linear 0.2s;
+}
+
+#appNav textarea, #appMain textarea {
+  //background:               transparent;
+}
+
+::-webkit-input-placeholder {
+  color: #ccc;
+  font-size: 10pt;
+}
+
+input[data-field="taskTitle"],
+input[data-field="displayInfoTitle"],
+input[data-field="projectTitle"] {
+  -webkit-box-shadow:       none;
+  -moz-box-shadow:          none;
+  box-shadow:               none;
+}
+
+.container-fluid {
+  //background:             @appBgColor;
+}
+
+.loginWrapper {
+  height:                   100%;
+  width:                    100%;
+  background:               url('/images/bg_9BD1FA.png');
+}
+
+.container.login {
+  position:                 relative;
+  top:                      40%;
+}
+
+.container.login h1.logo {
+  font-size:                32pt;
+  font-family:              AdventPro, 'Helvetica Neue', Arial, sans-Serif;
+  font-weight:              bold;
+  color:                    #fff;
+}
+
+.container.login h1.logo .version {
+  font-size:                10pt;
+}
+
+.container.login .bubble {
+}
+
+.container.login .bubble .controls {
+}
+
+.container.login .bubble input[type="text"],
+.container.login .bubble input[type="password"]  {
+  box-sizing:               border-box;
+  padding:                  15px 4px;
+  width:                    100%;
+}
+
+.container.login .bubble .formActions {
+  text-align:               right;
+}
+
+.container.login .bubble .formActions .btn {
+  position:                 relative;
+  top:                      -2px;
+}
+
+.maxHeight {
+  min-height:               100%;
+  height:                   100%;
+}
+
+#appNav, #appMain, #mainPane, #infoPane {
+  min-height:               100%;
+  max-height:               100%;
+  height:                   100%;
+}
+
+#appNav {
+  float:                    left;
+  background:               @navBg;
+  border-right:             1px darken(@navBgColor, 30%) solid;
+  -webkit-box-shadow:       @navBoxShadow;
+  -moz-box-shadow:          @navBoxShadow;
+  box-shadow:               @navBoxShadow;
+  width:                    @fluidGridColumnWidth * 2 + @fluidGridGutterWidth;
+  overflow-y:               auto;
+  overflow-x:               hidden;
+  position:                 relative;
+  z-index:                  1000;
+}
+
+#appNav > .nav {
+  list-style:               none;
+  margin:                   0px;
+  padding:                  0px;
+  border-bottom:            1px rgba(255, 255, 255, 0.2) solid;
+}
+
+#appNav > .nav > [data-navField="profile"] {
+  padding:                  10px 0px 10px 10px;
+  //border-bottom:          1px #333 solid;
+}
+
+#appNav [data-for="navGroup"] a {
+  color:                    #333;
+}
+
+#appNav .btn {
+  background:               @navBtnColor;
+  border:                   @navBtnBorderColor;
+  text-shadow:              0px 1px 1px #333;
+  color:                    @white;
+}
+
+#appNav .btn:hover {
+  background:               darken(@navBtnColor, 3%);
+}
+
+.dropdown-menu[data-for="navProfile"] {
+  border:                   1px #333 solid;
+}
+
+.dropdown-menu[data-for="navProfile"] > li > a {
+  color:                    #333;
+  font-size:                10pt;
+}
+
+.nav > .divider {
+  border-top:               1px #383e40 solid;
+  border-bottom:            1px rgba(255, 255, 255, 0.2) solid;
+}
+
+.nav .navGroupProjects {
+  -webkit-box-shadow:       inset -1px 0px rgba(255, 255, 255, 0.2);
+  -moz-box-shadow:          inset -1px 0px rgba(255, 255, 255, 0.2);
+  box-shadow:               inset -1px 0px rgba(255, 255, 255, 0.2);
+}
+
+.nav .nav-header[data-navField="group"] {
+  padding:                  5px 0px 5px 10px;
+  margin:                   0px;
+  color:                    darken(@navBgColor, 15%);
+  background:               @navHeaderBgColor;
+  border-top:               @navHeaderBorder;
+  border-bottom:            @navHeaderBorder;
+  -webkit-box-shadow:       @navHeaderBoxShadow;
+  -moz-box-shadow:          @navHeaderBoxShadow;
+  box-shadow:               @navHeaderBoxShadow;
+}
+
+.nav-header[data-navField="group"] > .groupOptions {
+  float:                    right;
+}
+
+.groupOptions > .btn {
+  margin:                   0px 10px 0px 0px;
+  padding:                  2px 3px;
+  position:                 relative;
+  top:                      -2px;
+}
+
+.groupOptions i.icon-cogwheels {
+  background:               url('/images/cogwheels_fafafa.png');
+}
+
+.nav li a {
+  text-decoration:          none;
+  color:                    @navLinkColor;
+}
+
+.nav li a:hover {
+  text-decoration:          none;
+  color:                    @navLinkColorHover;
+}
+
+.nav [data-navField="profile"]
+
+.nav [data-navField="profile"] span.label {
+  position:                 relative;
+  top:                      -2px;
+}
+
+.navGroupProjects {
+  background-color:         darken(@navBgColor, 5%);
+}
+
+.navGroupProjects > .groupProject, .navGroupProjects > .groupActions {
+  padding:                  3px 0px 3px 10px;
+  font-size:                12pt;
+}
+
+.navGroupProjects > .groupProject:hover {
+  background-color:         @navBgColor;
+}
+
+.navGroupProjects > .groupActions {
+  border-top:               1px darken(@navBgColor, 10%) solid;
+  -webkit-box-shadow:       @navHeaderBoxShadow;
+  -moz-box-shadow:          @navHeaderBoxShadow;
+  box-shadow:               @navHeaderBoxShadow;
+}
+
+#appNav .appInfo {
+  text-align:               center;
+}
+
+#appNav .appInfo .btn, #appNav .appInfo a {
+  font-size:                10pt;
+}
+
+#changeLog .modal-body {
+  max-height:               500px;
+  overflow-y:               auto;
+  overflow-x:               hidden;
+}
+
+#appMain {
+  float:                    left;
+  margin-left:              0px;
+  width:                    100% - (@fluidGridColumnWidth * 2) - @fluidGridGutterWidth - 0.1%;
+}
+
+#mainPane {
+  overflow-y:               auto;
+  overflow-x:               hidden;
+  background:               @mainPaneBg;
+  box-shadow:               @mainPaneBoxShadow;
+}
+
+.projectInfo {
+  background:               @headerBgColor;
+  border-top:               1px darken(@headerBgColor, 20%) solid;
+  box-shadow:               @headerBoxShadowInset;
+  padding-left:             20px;
+}
+
+.projectInfo > input[data-field="projectTitle"] {
+  background:               @headerBgColor;
+  font-weight:              200;
+  font-size:                @titleFontSize;
+  color:                    darken(@headerBgColor, 50%);
+  height:                   @titleFontSize;
+  margin-bottom:            0px;
+  width:                    92%;
+  border:                   1px @headerBgColor solid;
+  -webkit-border-radius:    0px;
+  -moz-border-radius:       0px;
+  border-radius:            0px;
+}
+
+.projectInfo > input[data-field="projectTitle"]:hover {
+  background:               darken(@headerBgColor, 10%);
+  border-top:               1px darken(@headerBgColor, 20%) solid;
+  border-right:             1px darken(@headerBgColor, 20%) solid;
+  border-left:              1px darken(@headerBgColor, 20%) solid;
+  border-bottom:            1px lighten(@headerBgColor, 2%) solid;
+  -webkit-box-shadow:       inset 1px 0px 3px darken(@headerBgColor, 20%)
+                          , inset 0px 1px 3px darken(@headerBgColor, 20%);
+  -moz-box-shadow:          inset 1px 0px 3px darken(@headerBgColor, 20%)
+                          , inset 0px 1px 3px darken(@headerBgColor, 20%);
+  box-shadow:               inset 1px 0px 3px darken(@headerBgColor, 20%)
+                          , inset 0px 1px 3px darken(@headerBgColor, 20%);
+  -webkit-border-radius:    0px;
+  -moz-border-radius:       0px;
+  border-radius:            0px;
+}
+
+.projectOptions {
+  border-top:               @headerBorder;
+  border-bottom:            @headerBorder;
+  background:               @headerOptionsBgColor;
+  -webkit-box-shadow:       @projectOptionsBoxShadow;
+  -moz-box-shadow:          @projectOptionsBoxShadow;
+  box-shadow:               @projectOptionsBoxShadow;
+}
+
+.projectOptions > ul {
+  list-style:               none;
+  display:                  inline-block;
+  margin:                   0px;
+  padding:                  0px;
+  width:                    100%;
+}
+
+.projectOptions > ul > li {
+  display:                  inline;
+  height: 100%;
+}
+
+.projectOptions .optionLabel {
+  font-size:                10pt;
+  color:                    darken(@headerOptionsBgColor, 20%);
+  text-shadow:              0px 1px 1px lighten(@headerOptionsBgColor, 5%);
+  margin-left:              20px;
+  position:                 relative;
+  top:                      3px;
+}
+
+.projectOptions .optionBtn {
+  position:                 relative;
+  top:                      2px;
+}
+
+.projectOptions .btn {
+  background:               @projectOptionsBtnColor;
+  border:                   @projectOptionsBorder;
+}
+
+.projectOptions .optionBtnEmbed .btn {
+  font-size:                10pt;
+  background:               @headerOptionsBgColor;
+  border-top:               1px rgba(255, 255, 255, 0.5) solid;
+  border-bottom:            1px @headerOptionsBgColor solid;
+  border-right:             none;
+  -webkit-box-shadow:       inset 1px 0px rgba(255, 255, 255, 0.5);
+  -moz-box-shadow:          inset 1px 0px rgba(255, 255, 255, 0.5);
+  box-shadow:               inset 1px 0px rgba(255, 255, 255, 0.5);
+  -webkit-border-radius:    0px;
+  -moz-border-radius:       0px;
+  border-radius:            0px;
+}
+
+.projectOptions .optionBtnEmbed.open .btn {
+  color: #333;
+}
+
+.projectOptions .btn:hover {
+  background:               darken(@projectOptionsBtnColor, 3%);
+  border-bottom:            1px darken(@projectOptionsBtnColor, 3%) solid;
+}
+
+.projectOptions .optionBtnEmbed .btn:hover {
+  background:               darken(@headerOptionsBgColor, 5%);
+}
+
+.projectOptions .optionBtnEmbed .btn:active {
+  border-top:               1px darken(@headerOptionsBgColor, 5%) solid;
+  -webkit-box-shadow:       inset 1px 0px 3px darken(@headerOptionsBgColor, 10%)
+                          , inset 0px 1px 3px darken(@headerOptionsBgColor, 10%);
+  -moz-box-shadow:          inset 1px 0px 3px darken(@headerOptionsBgColor, 10%)
+                          , inset 0px 1px 3px darken(@headerOptionsBgColor, 10%);
+  box-shadow:               inset 1px 0px 3px darken(@headerOptionsBgColor, 10%)
+                          , inset 0px 1px 3px darken(@headerOptionsBgColor, 10%);
+  
+}
+
+.taskList {
+  //background:               @taskBgColor;
+  //border-bottom:            1px darken(@headerBgColor, 30%) solid;
+  //box-shadow:               0px 3px 2px 0.5px darken(@headerBgColor, 10%);
+  height:                   auto;
+}
+
+.taskList > ul {
+  margin:                   0px;
+  height:                   auto;
+}
+
+.taskList[data-list] {
+  background:               @taskBgColor;
+  //border-bottom:            1px solid #ccc;
+}
+
+.taskList [data-list="taskList"] {
+  min-height: 10px;
+}
+
+.projectTask {
+  border-bottom:            1px #dedede solid;
+  box-shadow:               inset 0px 1px @headerBgColor;
+  background:               @taskBgColor;
+  height:                   40px;
+}
+
+.projectTask.complete, 
+.projectTask.complete [data-field="taskTitle"],
+.projectTask.complete a,
+.projectTask.complete .overdue {
+  background:               #EFEFEF;
+  color:                    #c9c9c9;
+}
+
+.projectTask.complete:hover {
+  background:               #EFEFEF;
+}
+
+.projectTask:hover {
+  background:               #f5fafa;
+}
+
+.projectTask.milestone {
+  height:                   auto;
+  border:                   none;
+  //position:                 relative;
+}
+
+.projectTask.milestone .taskFields {
+  padding:                  0 0 3px 44px;
+  border:                   1px solid #ccc;
+  background:               #E5E9EB;
+  height:                   12pt;
+  //position:                 absolute;
+  //top:                      -9pt;
+  //z-index:                  100;
+}
+
+.projectTask.milestone .taskFields [data-taskField="index"],
+.projectTask.milestone .taskFields [data-taskField="assignee"],
+.projectTask.milestone .taskFields [data-taskField="checkbox"],
+.projectTask.milestone .taskFields [data-taskField="display"],
+.projectTask.milestone .taskFields [data-taskField="dueDate"] {
+  display:                  none;
+}
+
+.projectTask.milestone input[data-field="taskTitle"] {
+  padding:                  0px;
+  position:                 relative;
+  top:                      -2px;
+  font-weight:              bold;
+  //width:                    auto;
+}
+
+.projectTask .taskFields {
+  list-style:               none;
+  margin:                   0px;
+  padding:                  0px;
+  display:                  inline-block;
+  width:                    100%;
+  height:                   100%;
+}
+
+.projectTask .taskFields li {
+  display:                  inline;
+  height:                   100%;
+  width:                    auto;
+}
+
+.projectTask .taskFields [data-taskField="index"] {
+}
+
+.projectTask .taskFields [data-taskField="index"] i {
+  //display:                  none;
+}
+
+.projectTask .taskFields [data-taskField="index"] div {
+  float:                    left;
+  width:                    30px;
+  text-align:               center;
+  position:                 relative;
+  top:                      11px;
+}
+
+.projectTask .taskFields [data-taskField="assignee"] div {
+  float:                    left;
+  width:                    50px;
+  overflow:                 hidden;
+  text-overflow:            ellipsis;
+  position:                 relative;
+  top:                      11px;
+  font-size:                8pt;
+  text-align:               center;
+}
+
+.projectTask .taskFields [data-taskField="checkbox"] {
+}
+
+.projectTask .taskFields [data-taskField="checkbox"] div {
+  float:                    left;
+  width:                    30px;
+  text-align:               center;
+  position:                 relative;
+  top:                      9px;
+}
+
+.projectTask .taskFields [data-taskField="dueDate"] {
+  font-size:                10pt;
+  position:                 relative;
+  top:                      5px;
+}
+
+.projectTask .taskFields [data-taskField="display"] {
+  //margin-right:             20px
+}
+
+.projectTask .overdue {
+  color:                    #C53D37;
+}
+
+.projectTask .taskFields [data-taskField="title"] {
+}
+
+.projectTask input[data-field="taskTitle"] {
+  padding:                  6px 4px;
+  min-width:                20px;
+  width:                    70%;
+  //width:                    auto;
+  margin-bottom:            0px;
+  background:               transparent;
+  border:                   none;
+  -webkit-border-radius:    0px;
+  -moz-border-radius:       0px;
+  border-radius:            0px;
+  white-space:              nowrap;
+  text-overflow:            ellipsis;
+  overflow:                 hidden;
+  font-size:                10pt;
+  position:                 relative;
+  top:                      5px;
+}
+
+.projectTask [data-field="resizer"] {
+  display:                  none;
+  font-size:                10pt;
+  font-weight:              bold;
+}
+
+.projectTask a[data-action="displayTask"] {
+  padding:                  0px;
+  position:                 relative;
+  top:                      8px;
+}
+
+.projectTask a[data-action="displayTask"].btn {
+  background:               @headerOptionsBgColor;
+  border:                   @projectOptionsBorder;
+}
+
+.projectTask input[data-action="taskComplete"] {
+  position:                 relative;
+  top:                      -2px;
+  height:                   auto;
+}
+
+input[name="newTask"] {
+  width:                    92%;
+}
+
+#infoPane {
+  position:                 relative;
+  margin:                   0px;
+  -moz-width:               39.6%;
+  width:                    @fluidGridColumnWidth * 5 + @fluidGridGutterWidth - 0.1%;
+  border-left:              1px darken(@mainPaneBgColor, 10%) solid;
+  font-size:                10pt;
+  overflow-y:               auto;
+  overflow-x:               hidden;
+}
+
+.infoHeader, .infoTitle, .infoDetail {
+  width:                    auto;
+}
+
+.infoHeader {
+  height:                   18pt;
+  line-height:              12pt;
+  background:               @infoPaneHeaderBgColor;
+  box-shadow:               @infoPaneHeaderBoxShadow;
+}
+
+.infoOptions {
+  background:               @infoPaneHeaderBgColor;
+  border-top:               1px darken(@infoPaneHeaderBgColor, 30%) solid;
+}
+
+.infoOptions .btn {
+  background:               @infoOptionsBgColor;
+  border:                   @infoOptionsBorder;
+}
+
+.infoOptions > ul {
+  list-style:               none;
+  display:                  inline-block;
+  margin:                   0px;
+  padding:                  0px;
+  width:                    100%;
+  box-shadow:               @infoOptionsBoxShadow;
+  vertical-align:           bottom;
+}
+
+.infoOptions > ul > li {
+  display:                  inline;
+  height:                   100%;
+}
+
+.infoOptions .optionBtn {
+  
+}
+
+.infoOptions .optionBtn .btn {
+  position:                 relative;
+  top:                      3px;
+  margin-left:              10px;
+}
+
+.infoOptions .optionBtn .btn:hover {
+  background:               darken(@infoOptionsBgColor, 5%);
+}
+
+.infoOptions .optionBtnEmbed .btn {
+  -webkit-box-shadow:       inset 1px 0px rgba(255, 255, 255, 0.5);
+  -moz-box-shadow:          inset 1px 0px rgba(255, 255, 255, 0.5);
+  box-shadow:               inset 1px 0px rgba(255, 255, 255, 0.5);
+  -webkit-border-radius:    0px;
+  -moz-border-radius:       0px;
+  border-radius:            0px;
+  border-top:               1px rgba(255, 255, 255, 0.5) solid;
+  border-bottom:            none;
+  border-left:              1px darken(@infoPaneHeaderBgColor, 30%) solid;
+  border-right:             none;
+  background:               @infoOptionsBgColor;
+  margin:                   0px;
+  font-size:                10pt;
+}
+
+.infoOptions .optionBtnEmbed .btn:hover {
+  background:               darken(@infoOptionsBgColor, 5%);
+}
+
+.infoOptions .optionBtnEmbed .btn:active {
+  border-top:               1px darken(@infoOptionsBgColor, 5%) solid;
+  -webkit-box-shadow:       inset 1px 0px 3px darken(@infoOptionsBgColor, 10%)
+                          , inset 0px 1px 3px darken(@infoOptionsBgColor, 10%);
+  -moz-box-shadow:          inset 1px 0px 3px darken(@infoOptionsBgColor, 10%)
+                          , inset 0px 1px 3px darken(@infoOptionsBgColor, 10%);
+  box-shadow:               inset 1px 0px 3px darken(@infoOptionsBgColor, 10%)
+                          , inset 0px 1px 3px darken(@infoOptionsBgColor, 10%);
+
+}
+
+.infoTitle {
+  padding:                  0px 10px;
+  padding-top:              10px;
+  border-top:               1px darken(@infoPaneHeaderBgColor, 30%) solid;
+  box-shadow:               inset 0px 1px rgba(255, 255, 255, 0.5)
+                          , inset 1px 0px rgba(255, 255, 255, 0.5);
+}
+
+.infoTitle > input[data-field="displayInfoTitle"] {
+  color:                    @black;
+  font-weight:              200;
+  font-size:                @titleFontSize;
+  height:                   @titleFontSize;
+  margin-bottom:            0px;
+  width:                    98%;
+  border:                   1px #fff solid;
+  -webkit-box-shadow:       none;
+  -moz-box-shadow:          none;
+  box-shadow:               none;
+  white-space:              nowrap;
+  text-overflow:            ellipsis;
+  overflow:                 hidden;
+}
+
+.infoTitle > input[data-field="displayInfoTitle"]:hover {
+  border:                   1px #ACD1E9 solid;
+}
+
+.infoDetail {
+  padding-top: 5px;
+}
+
+.infoDetail input {
+  font-size:                10pt;
+}
+
+.infoDetail div {
+  padding:                  0px 10px;
+  border:                   1px transparent solid;
+}
+
+.infoDetail textarea {
+  margin:                   0px;
+  resize:                   none;
+  overflow:                 hidden;
+  height:                   auto;
+  width:                    98%;
+  border:                   1px @infoPaneBgColor solid;
+  -webkit-box-shadow:       none;
+  -moz-box-shadow:          none;
+  box-shadow:               none;
+  font-weight:              200;
+}
+
+.infoDetail textarea:hover {
+  border:                   1px #ACD1E9 solid;
+}
+
+.infoDetail #textareaResize {
+  white-space:              pre;
+  font-size:                12pt;
+  display:                  none;
+}
+
+[placeholder="Description"] {
+}
+
+[placeholder="Notes"] {
+}
+
+.infoDetail [data-infoField] {
+  min-height:               30px;
+}
+
+.infoDetail [data-infoField]:hover {
+  //border-top:               1px #ccc solid;
+  //border-bottom:            1px #ccc solid;
+}
+
+.infoDetail [data-infoField="members"] > dl dt {
+  position:                 relative;
+  top:                      6px;
+}
+
+.infoDetail [data-infoField="taskAssignee"] [data-field="placeholder"] {
+  color:                    #ccc;
+  position:                 relative;
+  top:                      4px;
+}
+
+.infoDetail [data-infoField="taskAssignee"] input[data-field="taskAssignee"] {
+  width:                    30%;
+  border:                   1px @infoPaneBgColor solid;
+  -webkit-box-shadow:       none;
+  -moz-box-shadow:          none;
+  box-shadow:               none;
+}
+
+.infoDetail input[data-field="taskAssignee"].hover {
+  border:                   1px #ACD1E9 solid;
+}
+
+.infoDetail input[data-field="taskAssignee"]:hover {
+  border:                   1px #ACD1E9 solid;
+}
+
+.infoDetail [data-infoField="taskDueDate"] input[data-field="taskDueDate"] {
+  border:                   1px @infoPaneBgColor solid;
+  -webkit-box-shadow:       none;
+  -moz-box-shadow:          none;
+  box-shadow:               none;
+}
+
+.infoDetail input[data-field="taskDueDate"].hover {
+  border:                   1px #ACD1E9 solid;
+}
+
+.infoDetail input[data-field="taskDueDate"]:hover {
+  border:                   1px #ACD1E9 solid;
+}
+
+.infoDetail [data-input="userName"] {
+  width:                100px;
+}
+
+.infoDetail dl {
+  margin:                   0px;
+  margin-bottom:            0px;
+}
+
+.infoDetail dt, .infoDetail dd {
+  min-height:               30px;
+}
+
+.infoDetail dl dt {
+  font-size:                10pt;
+  clear:                    left;
+  float:                    left;
+  width:                    100px;
+  font-weight:              200;
+  color:                    #ccc;
+  padding-left:             4px;
+}
+
+.infoDetail dl > div > dt {
+  position:                 relative;
+  top:                      4px;
+}
+
+.infoDetail dl dd {
+  margin-left:              120px;
+  max-width:                400px;
+}
+
+.infoDetail dl dd input {
+}
+
+.infoDetail dl dd ul {
+  list-style:               none;
+  margin:                   0px;
+  display:                  inline-block;
+  max-width:                400px;
+}
+
+.infoDetail dl dd ul li {
+  display:                  inline;
+  margin-right:             15px;
+  vertical-align:           top;
+}
+
+.infoDetail dl dd ul li a {
+  vertical-align:           top;
+}
+
+.infoDetail dl dd ul li[data-field="projectUser"] {
+  position:                 relative;
+  top:                      6px;
+}
+
+.infoDetail dl dd ul li .btn {
+  position:                 relative;
+  top:                      5px;
+  vertical-align:           top;
+}
+
+.token-input-dropdown {
+  background:               #fafafa;
+  border:                   1px solid #ccc;
+  border-radius:            5px;
+  box-shadow:               0px 0px 2px 2px #ededed;
+}
+
+.token-input-dropdown ul {
+  list-style:               none;
+  padding:                  0px;
+  margin:                   0px;
+}
+
+.token-input-dropdown ul li {
+  padding:                  2px 4px;
+}
+
+.token-input-dropdown ul li:hover {
+  background:               #f5fafa;
+}
+
+.token-input-dropdown [data-field="projectMember"] [data-field="name"] {
+  font-size:                10pt;
+}
+
+.token-input-dropdown [data-field="projectMember"] [data-field="email"] {
+  font-size:                8pt;
+  color:                    #ccc;
+}
+
+.infoDetail .token-input-list {
+  list-style:               none;
+}
+
+.infoDetail [data-infoField="taskAssignee"] input {
+  width:                    30px;
+}
+
+.infoDetail [data-infoField="taskAssignee"] > .token-input-list {
+}
+
+.infoDetail [data-infoField="taskAssignee"] > .token-input-list > .token-input-token {
+  display:                  inline-block;
+}
+
+.infoDetail [data-infoField="taskAssignee"] .token-input-token > [data-assigneeEmail],
+.infoDetail [data-infoField="taskAssignee"] .token-input-token > .token-input-delete-token {
+  display:                  inline;
+}
+
+.infoDetail [data-infoField="taskAssignee"] .token-input-token > .token-input-delete-token {
+  cursor:                   pointer;
+  margin-left:              10px;
+}
+
+.infoStreamOptions {
+  text-align:               center;
+  margin-top:               20px;
+}
+
+.infoStreamOptions ul {
+  display:                  inline-block;
+}
+
+.infoStreamOptions ul li {
+  display:                  inline;
+  margin-right:             20px;
+}
+
+#userDashboard {
+  padding:                  20px;
+  h1 {
+    font-size:                30pt;
+    font-weight:              normal;
+    color:                    #c8d0d5;
+  }
+  [data-projectList] {
+    color:                    #333;
+    clear:                    both;
+    margin-top:               20px;
+    .title {
+      display:                  inline-block;
+      background:               #fafafa;
+      padding:                  0px 5px;
+      h2, span {
+        display:                  inline;
+      }
+      h2 {
+        margin-right:             30px;
+        color:                    #c8d0d5;
+        font-weight:              normal;
+      }
+      .countTasks {
+        font-size:                18pt;
+        color:                    #e8d0a9;
+        .remaining {
+          font-size:              10pt;
+          color:                  #c8d0d5;
+          margin-left:            10px;
+        }
+      }
+    }
+    .project {
+      margin-top:               20px;
+      border-radius:            10px;
+      background:               #fafafa;
+      padding-bottom:           10px;
+      .title {
+        padding:                5px 10px 5px 10px;
+        font-size:              18pt;
+        line-height:            18pt;
+        display:                block;
+        color:                  #fafafa;
+        background:             #c8d0d5;
+        border-top-left-radius:           10px;
+        border-top-right-radius:          10px;
+      }
+      .taskList [data-list] .milestone ul {
+        box-sizing:             border-box;
+      }
+    }
+  }
+}
